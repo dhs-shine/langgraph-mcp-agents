@@ -42,7 +42,7 @@ def create_retriever() -> Any:
     # Step 4: Create Vector Database
     # FAISS is an efficient similarity search library that stores vector embeddings
     # and allows for fast retrieval of similar vectors
-    embeddings = OllamaEmbeddings(model="nomic-embe-text")
+    embeddings = OllamaEmbeddings(model="nomic-embed-text")
     vectorstore = FAISS.from_documents(documents=split_documents, embedding=embeddings)
 
     # Step 5: Create Retriever
