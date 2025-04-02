@@ -1,7 +1,8 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyMuPDFLoader
 from langchain_community.vectorstores import FAISS
-from langchain_openai import OpenAIEmbeddings
+# from langchain_openai import OpenAIEmbeddings
+from langchain_community.embeddings import OllamaEmbeddings
 from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv
 from typing import Any
@@ -36,11 +37,12 @@ def create_retriever() -> Any:
 
     # Step 3: Create Embeddings
     # OpenAI's text-embedding-3-small model is used to convert text chunks into vector embeddings
-    embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+    # embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
     # Step 4: Create Vector Database
     # FAISS is an efficient similarity search library that stores vector embeddings
     # and allows for fast retrieval of similar vectors
+    embeddings = OllamaEmbeddings(model="nomic-embe-text")
     vectorstore = FAISS.from_documents(documents=split_documents, embedding=embeddings)
 
     # Step 5: Create Retriever
